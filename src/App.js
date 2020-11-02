@@ -1,23 +1,30 @@
-import logo from './logo.svg';
+import React,{useState} from 'react';
+import Creatbox from './components/Creatbox';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
+  const[state,setState] = useState({
+    color:"",
+  });
+  const [boxes,setBoxes] = useState([]);
+
+  const addbox = (box) =>{
+    console.log(box);
+    setBoxes([...boxes,box]
+    )
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Creatbox onNewMessage={addbox} input={state} setInput={setState}/>
+      <h1 className='font-italic'>Box Generator</h1>
+      <div className="d-flex justify-content-center flex-wrap p-4">
+      {
+        boxes.map((box,i) =>
+        <div className='box' style={{width:"100px", height:"100px",margin:'20px', backgroundColor:box.color}}></div>)
+      }
+      </div>
     </div>
   );
 }
